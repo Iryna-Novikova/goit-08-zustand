@@ -5,11 +5,12 @@ import NoteList from '@/components/NoteList/NoteList';
 import { fetchNotes, NotesHttpResponse } from '@/lib/api';
 import { keepPreviousData, useQuery } from '@tanstack/react-query';
 import Pagination from '@/components/Pagination/Pagination';
-import Modal from '@/components/Modal/Modal';
-import NoteForm from '@/components/NoteForm/NoteForm';
+// import Modal from '@/components/Modal/Modal';
+// import NoteForm from '@/components/NoteForm/NoteForm';
 import SearchBox from '@/components/SearchBox/SearchBox';
 import { useDebouncedCallback } from 'use-debounce';
 import { NoteTagType } from '@/types/note';
+import Link from 'next/link';
 
 interface NotesPageClientProps {
   initialData: NotesHttpResponse;
@@ -19,7 +20,7 @@ interface NotesPageClientProps {
 function NotesPageClient({ initialData, tag }: NotesPageClientProps) {
   // стани
   const [currentPage, setCurrentPage] = useState(1);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  // const [isModalOpen, setIsModalOpen] = useState(false);
   const [query, setQuery] = useState('');
 
   const { data, isError, isLoading, isSuccess } = useQuery({
@@ -36,13 +37,13 @@ function NotesPageClient({ initialData, tag }: NotesPageClientProps) {
     setCurrentPage(1);
   }, 500);
 
-  const openModal = () => {
-    setIsModalOpen(true);
-  };
+  // const openModal = () => {
+  //   setIsModalOpen(true);
+  // };
 
-  const closeModal = () => {
-    setIsModalOpen(false);
-  };
+  // const closeModal = () => {
+  //   setIsModalOpen(false);
+  // };
 
   return (
     <div className={css.app}>
@@ -55,9 +56,9 @@ function NotesPageClient({ initialData, tag }: NotesPageClientProps) {
             onSelectPage={setCurrentPage}
           />
         )}
-        <button onClick={openModal} className={css.button}>
+        <Link href="/notes/action/create" className={css.button}>
           Create note +
-        </button>
+        </Link>
       </header>
       {isError && <div>Error. Try again.</div>}
       {isLoading && <div> Data is loading ...</div>}
@@ -65,11 +66,11 @@ function NotesPageClient({ initialData, tag }: NotesPageClientProps) {
         <div>Data not found. Please try other query.</div>
       )}
       {data && data.notes.length > 0 && <NoteList notes={data.notes} />}
-      {isModalOpen && (
+      {/* {isModalOpen && (
         <Modal onClose={closeModal}>
           <NoteForm onClose={closeModal} onSuccessAdd={setCurrentPage} />
         </Modal>
-      )}
+      )} */}
     </div>
   );
 }
