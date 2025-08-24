@@ -5,8 +5,6 @@ import NoteList from '@/components/NoteList/NoteList';
 import { fetchNotes, NotesHttpResponse } from '@/lib/api';
 import { keepPreviousData, useQuery } from '@tanstack/react-query';
 import Pagination from '@/components/Pagination/Pagination';
-// import Modal from '@/components/Modal/Modal';
-// import NoteForm from '@/components/NoteForm/NoteForm';
 import SearchBox from '@/components/SearchBox/SearchBox';
 import { useDebouncedCallback } from 'use-debounce';
 import { NoteTagType } from '@/types/note';
@@ -37,14 +35,6 @@ function NotesPageClient({ initialData, tag }: NotesPageClientProps) {
     setCurrentPage(1);
   }, 500);
 
-  // const openModal = () => {
-  //   setIsModalOpen(true);
-  // };
-
-  // const closeModal = () => {
-  //   setIsModalOpen(false);
-  // };
-
   return (
     <div className={css.app}>
       <header className={css.toolbar}>
@@ -66,11 +56,6 @@ function NotesPageClient({ initialData, tag }: NotesPageClientProps) {
         <div>Data not found. Please try other query.</div>
       )}
       {data && data.notes.length > 0 && <NoteList notes={data.notes} />}
-      {/* {isModalOpen && (
-        <Modal onClose={closeModal}>
-          <NoteForm onClose={closeModal} onSuccessAdd={setCurrentPage} />
-        </Modal>
-      )} */}
     </div>
   );
 }

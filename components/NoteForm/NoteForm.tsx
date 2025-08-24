@@ -1,6 +1,6 @@
 'use client';
 import { useId } from 'react';
-import type { NewNote } from '@/types/note';
+import type { NewNote, NoteTagType } from '@/types/note';
 import css from './NoteForm.module.css';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { createNote } from '@/lib/api';
@@ -35,9 +35,12 @@ export default function NoteForm() {
   });
 
   const handleSubmit = (formData: FormData) => {
-    const values = Object.fromEntries(formData) as NewNote;
+    const values: NewNote = {
+      title: formData.get('title') as string,
+      content: formData.get('content') as string,
+      tag: formData.get('tag') as NoteTagType,
+    };
     createTaskMutation.mutate(values);
-    console.log(formData);
   };
 
   const handleCancel = () => router.back();
