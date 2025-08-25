@@ -2,6 +2,7 @@ import css from './NotesPage.module.css';
 import { fetchNotes } from '@/lib/api';
 import NotesPageClient from './Notes.client';
 import { NoteTagType } from '@/types/note';
+import { Metadata } from 'next';
 
 type NoteCategory = NoteTagType | 'All';
 
@@ -9,7 +10,9 @@ interface CategoryPageProps {
   params: Promise<{ slug: NoteCategory[] }>;
 }
 
-export async function generateMetadata({ params }: CategoryPageProps) {
+export async function generateMetadata({
+  params,
+}: CategoryPageProps): Promise<Metadata> {
   const { slug } = await params;
 
   return {
